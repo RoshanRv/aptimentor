@@ -16,7 +16,7 @@ const Tiltcard = ({ children, className, ...props }: Props) => {
       glarePosition="all"
       scale={1.1}
       className={twMerge(
-        "p-4 rounded-xl  backdrop-blur-[2px] bg-gradient-to-tr from-gray-50/20 to-gray-100/10 border-2 border-gray-100 absolute",
+        " rounded-xl  backdrop-blur-[2px] bg-gradient-to-tr from-gray-50/20 to-gray-100/10 border-2 border-gray-100 absolute",
         className
       )}
       {...props}
