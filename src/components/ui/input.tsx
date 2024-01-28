@@ -46,4 +46,6 @@ const InputWithIcon = React.forwardRef<
   );
 });
 
+InputWithIcon.displayName = "InputWithIcon";
+
 export { Input, InputWithIcon };

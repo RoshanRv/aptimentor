@@ -8,7 +8,6 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 import {
-  Command,
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -16,9 +15,8 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
 } from "@/components/ui/command";
-import { Input, InputWithIcon } from "@/components/ui/input";
+import { InputWithIcon } from "@/components/ui/input";
 
 const quantitative = [
   "Numbers",
@@ -82,7 +80,7 @@ const logical = [
 
 type Props = {};
 
-const page = (props: Props) => {
+const PreparePage = (props: Props) => {
   const topic = useSearchParams().get("topic");
   const [show, setShow] = useState<null | string>(null);
   const [open, setOpen] = useState(false);
@@ -190,7 +188,7 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default PreparePage;
 
 const Card = ({
   list,
