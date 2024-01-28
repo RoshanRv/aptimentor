@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Exo } from "next/font/google";
 import "./globals.css";
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/SessionProvider";
-import { Login } from "@/components/component/login";
 import Navbar from "@/components/component/navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const exo = Exo({
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,11 +21,9 @@ export default async function RootLayout({
 }>) {
   const session = await getServerSession();
 
-  // if (!session || !session.user) return <Login />;
-
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={exo.className}>
         <SessionProvider session={session}>
           <Navbar />
           {children}
