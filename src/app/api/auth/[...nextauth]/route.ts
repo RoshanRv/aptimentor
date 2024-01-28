@@ -1,15 +1,40 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
+import { PrismaClient } from "@prisma/client";
 
-export const authOptions = {
-  // Configure one or more authentication providers
+const prisma = new PrismaClient();
+
+export const authOptions: AuthOptions = {
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID ?? "",
       clientSecret: process.env.GITHUB_SECRET ?? "",
     }),
-    // ...add more providers here
   ],
+  callbacks: {
+    async signIn({ user }) {
+      if (user.email) {
+        // Existing User || null
+        const databaseUser = await prisma.user.findUnique({
+          where: {
+            email: user.email || "",
+          },
+        });
+
+        // New User
+        if (!databaseUser) {
+          await prisma.user.create({
+            data: {
+              email: user.email,
+              name: user.name || "",
+              image: user.image,
+            },
+          });
+        }
+      }
+      return true;
+    },
+  },
 };
 
 export const handler = NextAuth(authOptions);
