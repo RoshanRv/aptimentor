@@ -1,5 +1,4 @@
 import Image from "next/image";
-import HEROBG from "@/assets/home-bg.webp";
 import BRAIN from "@/assets/brain.webp";
 import BULB from "@/assets/bulb.webp";
 import PUZZLE from "@/assets/puzzle.webp";
@@ -12,13 +11,7 @@ export default function Home() {
   return (
     <main className="flex  flex-col items-center justify-between ">
       {/* Hero */}
-      <section className="w-full h-screen flex justify-center items-center puzz relative  overflow-hidden ">
-        <Image
-          priority
-          alt="hero-bg"
-          src={HEROBG}
-          className="absolute w-full h-full lg:top-40 top-0 left-0 lg:left-40 -z-10  lg:scale-150"
-        />
+      <section className="w-full h-screen flex justify-center items-center  relative   ">
         {/* Hero Content */}
         <div className="flex flex-col gap-12 w-10/12 lg:w-1/2">
           <div className="flex flex-col gap-2 text-center">

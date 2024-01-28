@@ -4,6 +4,8 @@ import "./globals.css";
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/SessionProvider";
 import Navbar from "@/components/component/navbar";
+import Image from "next/image";
+import HEROBG from "@/assets/home-bg.webp";
 
 const exo = Exo({
   subsets: ["latin"],
@@ -25,8 +27,16 @@ export default async function RootLayout({
     <html lang="en">
       <body className={exo.className}>
         <SessionProvider session={session}>
-          <Navbar />
-          {children}
+          <main className="puzz overflow-hidden">
+            <Image
+              priority
+              alt="hero-bg"
+              src={HEROBG}
+              className="fixed w-full  lg:top-40 top-0 left-0 lg:left-40 -z-10  lg:scale-150 h-screen overflow-hidden"
+            />
+            <Navbar />
+            {children}
+          </main>
         </SessionProvider>
       </body>
     </html>
