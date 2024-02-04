@@ -53,7 +53,11 @@ const Navbar = (props: Props) => {
             </div>
           </div>
         ) : (
-          <Button onClick={() => signIn()}>Sign In</Button>
+          <Button
+            onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
+          >
+            Sign In
+          </Button>
         )}
       </div>
     </nav>
