@@ -10,6 +10,7 @@ import CLOCK from "@/assets/clock.webp";
 import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma.utils";
 import { Sparkles } from "lucide-react";
+import UserReport from "@/components/component/userReport";
 
 const Dashboard = async () => {
   const session = await getServerSession();
@@ -37,7 +38,7 @@ const Dashboard = async () => {
         {/* Progress */}
         <div className="bg-white p-3 rounded-lg shadow-lg w-full  relative">
           {/* Graph */}
-          <div className="w-full   relative ">
+          <div className="w-full  relative flex fle-col  h-full ">
             {/* profile Pic */}
             <div className="h-28 w-28 bg-white absolute flex justify-center items-center rounded-full -translate-y-[75%] left-10 ">
               {user.image && (
@@ -57,15 +58,16 @@ const Dashboard = async () => {
                 {`${user.institution} | ${user.role}`}
               </h1>
             </div>
+            <UserReport />
           </div>
           {/* Growth */}
-          <Image
+          {/* <Image
             src={PROGRESS}
             alt="progress"
             className="absolute -bottom-5 -right-5"
             height={150}
             width={150}
-          />
+          /> */}
         </div>
         {/* Challenge */}
         <div className="bg-white p-3 rounded-lg shadow-lg flex flex-col gap-2 relative w-max">
