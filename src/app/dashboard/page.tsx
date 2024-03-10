@@ -9,6 +9,7 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import PROGRESS from "@/assets/growth.png";
 import usePrismaClient from "@/store/usePrismaClient";
+import { getUser } from "./actions";
 
 const Dashboard = async () => {
   const session = await getServerSession();
@@ -17,11 +18,7 @@ const Dashboard = async () => {
     redirect("/dashboard");
   }
 
-  const user = await usePrismaClient.getState().prisma.user.findUnique({
-    where: {
-      email: session.user.email,
-    },
-  });
+  const user = await getUser(session.user.email);
 
   if (!user) redirect("/");
 

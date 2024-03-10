@@ -5,10 +5,13 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { ReactNode } from "react";
 
-type Props = {};
+type Props = {
+  children: ReactNode;
+};
 
-const Navbar = (props: Props) => {
+const Navbar = ({ children: NavTabs }: Props) => {
   const { data: session } = useSession();
   const isHomePage = usePathname() === "/";
 
@@ -24,19 +27,7 @@ const Navbar = (props: Props) => {
         <h1 className="font-bold text-2xl">{isHomePage ? "" : "Aptimentor"}</h1>
       </Link>
       <div className="flex gap-10 items-center z-50">
-        <Link
-          href={"/prepare"}
-          className="font-semibold cursor-pointer px-4 py-2 rounded-md hover:bg-gray-100/70 backdrop-blur-lg"
-        >
-          Prepare
-        </Link>
-        <Link
-          href={"/test"}
-          className="font-semibold cursor-pointer px-4 py-2 rounded-md hover:bg-gray-100/70 backdrop-blur-lg"
-        >
-          Take Test
-        </Link>
-
+        {NavTabs}
         {session?.user && session?.user?.image ? (
           <div className="relative group ">
             <div className="relative w-10 h-10 rounded-lg bg-red">

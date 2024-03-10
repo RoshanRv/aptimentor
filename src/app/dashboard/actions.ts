@@ -14,3 +14,13 @@ export const updateUser = async (user: Partial<Omit<User, "id" | "name">>) => {
 
   revalidatePath("/dashboard");
 };
+
+export const getUser = async (email: string) => {
+  const user = await usePrismaClient.getState().prisma.user.findUnique({
+    where: {
+      email,
+    },
+  });
+
+  return user;
+};

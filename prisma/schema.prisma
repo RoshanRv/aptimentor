@@ -15,6 +15,12 @@ enum Role{
   staff
 }
 
+enum QuestionType{
+  aptitude
+  logical_reason
+  verbal_ability
+}
+
 
 model User{
   id String @id @default(cuid())
@@ -25,4 +31,16 @@ model User{
   batch String?
   dept String?
   role Role?
+}
+
+model Questions{
+  id String @id @default(cuid())
+  question String
+  opt1 String?
+  opt2 String?
+  opt3 String?
+  opt4 String?
+  ans Int
+  topic String?
+  type QuestionType
 }

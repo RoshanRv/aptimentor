@@ -6,6 +6,7 @@ import SessionProvider from "@/components/SessionProvider";
 import Navbar from "@/components/component/navbar";
 import Image from "next/image";
 import HEROBG from "@/assets/home-bg.webp";
+import NavTabs from "@/components/component/navTabs";
 
 const exo = Exo({
   subsets: ["latin"],
@@ -34,7 +35,9 @@ export default async function RootLayout({
               src={HEROBG}
               className="fixed w-full  lg:top-40 top-0 left-0 lg:left-40 -z-10  lg:scale-150 h-screen overflow-hidden"
             />
-            <Navbar />
+            <Navbar>
+              <NavTabs />
+            </Navbar>
             {children}
           </main>
         </SessionProvider>
