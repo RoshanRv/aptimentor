@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma.utils";
+import usePrismaClient from "@/store/usePrismaClient";
 import NextAuth, { AuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 
@@ -14,15 +14,17 @@ const authOptions: AuthOptions = {
     async signIn({ user }) {
       if (user.email) {
         // Existing User || null
-        const databaseUser = await prisma.user.findUnique({
-          where: {
-            email: user.email || "",
-          },
-        });
+        const databaseUser = await usePrismaClient
+          .getState()
+          .prisma.user.findUnique({
+            where: {
+              email: user.email || "",
+            },
+          });
 
         // New User
         if (!databaseUser) {
-          await prisma.user.create({
+          await usePrismaClient.getState().prisma.user.create({
             data: {
               email: user.email,
               name: user.name || "",

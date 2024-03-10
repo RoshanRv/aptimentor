@@ -4,11 +4,11 @@ import Leaderboard from "@/components/component/leaderboard";
 import NewUser from "@/components/component/newUser";
 import Plan from "@/components/component/plan";
 import UserReport from "@/components/component/userReport";
-import { prisma } from "@/lib/prisma.utils";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import PROGRESS from "@/assets/growth.png";
+import usePrismaClient from "@/store/usePrismaClient";
 
 const Dashboard = async () => {
   const session = await getServerSession();
@@ -17,7 +17,7 @@ const Dashboard = async () => {
     redirect("/dashboard");
   }
 
-  const user = await prisma.user.findUnique({
+  const user = await usePrismaClient.getState().prisma.user.findUnique({
     where: {
       email: session.user.email,
     },
