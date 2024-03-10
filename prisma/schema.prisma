@@ -35,12 +35,12 @@ model User{
 
 model Questions{
   id String @id @default(cuid())
-  question String
+  question String?
   opt1 String?
   opt2 String?
   opt3 String?
   opt4 String?
-  ans Int
+  ans String?
   topic String?
   type QuestionType
 }

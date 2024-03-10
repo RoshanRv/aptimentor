@@ -35,7 +35,9 @@ export function Combobox({ list, setValue, value, label }: Props) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className=" justify-between w-full"
+          className={` justify-between w-full ${
+            open && "border-violet-300  border-2"
+          } `}
         >
           <p className="capitalize">{value ? value : `Select ${label}`}</p>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
