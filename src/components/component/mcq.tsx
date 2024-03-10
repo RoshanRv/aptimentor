@@ -8,8 +8,8 @@ const MCQ = ({
   ansIndex,
 }: {
   ques: string;
-  choices: string[];
-  ansIndex: number;
+  choices: (string | null | undefined)[];
+  ansIndex: number | null | undefined;
 }) => {
   const [selectedAns, setSelectedAns] = useState<null | number>(null);
   return (
@@ -39,7 +39,7 @@ interface OptTypes {
   index: number;
   selectedAns: number | null;
   setSelectedAns: (ans: number | null) => void;
-  ansIndex: number;
+  ansIndex: number | null | undefined;
 }
 
 export const Opt = ({

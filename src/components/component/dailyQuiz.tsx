@@ -3,12 +3,21 @@ import React from "react";
 import MCQ from "./mcq";
 import { Button } from "../ui/button";
 import CLOCK from "@/assets/clock.webp";
+import usePrismaClient from "@/store/usePrismaClient";
 
 type Props = {};
 
-const DailyQuiz = (props: Props) => {
+const DailyQuiz = async (props: Props) => {
+  const question = await usePrismaClient
+    .getState()
+    .prisma.questions.findUnique({
+      where: {
+        id: "cltlvikya00012xdboxddteja",
+      },
+    });
+
   return (
-    <div className="bg-white p-5 rounded-lg shadow-lg flex flex-col gap-2 relative ">
+    <div className="bg-white p-5 rounded-lg shadow-lg flex flex-col gap-2 relative min-w-[30%] ">
       {/* Clock Icon */}
       <Image
         src={CLOCK}
@@ -20,12 +29,20 @@ const DailyQuiz = (props: Props) => {
       <h1 className="text-xl font-semibold">Daily Quizz</h1>
       <div className="flex flex-col gap-3">
         <p className="font-medium mt-4 ">
-          Topic: <span className="font-normal">Simple Interest | Aptitude</span>
+          Topic:{" "}
+          <span className="font-normal capitalize">{`${
+            question?.topic
+          } | ${question?.type.split("_").join(" ")}`}</span>
         </p>
         <MCQ
-          ques={`A sum amounts to Rs 1065 at simple interest rate of 7.5% per annum after 3 years. Find the sum.`}
-          choices={["878.40", "869.38", "869.28", "783.20"]}
-          ansIndex={1}
+          ques={`${question?.question}`}
+          choices={[
+            question?.opt1,
+            question?.opt2,
+            question?.opt3,
+            question?.opt4,
+          ]}
+          ansIndex={question?.ans ? parseInt(question?.ans) : null}
         />
         {/* Btns */}
         <div className="flex gap-3 mt-4">
