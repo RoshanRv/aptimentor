@@ -32,7 +32,7 @@ const QuestionPage = (props: Props) => {
   };
 
   return (
-    <main className="pt-20 pb-2 px-3 lg:px-6">
+    <main className="pt-20 pb-2 px-3 lg:px-6 min-h-screen">
       <section className="flex flex-col gap-4 justify-center items-center">
         <h3 className="text-3xl font-semibold ">Add Questions Here !!!!</h3>
         {/* Question Box */}
