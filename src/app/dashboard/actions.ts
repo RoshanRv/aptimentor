@@ -25,9 +25,71 @@ export const getUser = async (email: string) => {
       where: {
         email,
       },
+      include: {
+        solved: {
+          include: {
+            question: true,
+          },
+        },
+      },
     });
 
     return user;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getDepartmentsOfInstitute = async (institution: string) => {
+  try {
+    const depts = await usePrismaClient.getState().prisma.user.groupBy({
+      by: ["dept"],
+      where: {
+        institution,
+        role: "student",
+      },
+    });
+    return depts.map((dept) => dept.dept);
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getBatchesOfInstitute = async (institution: string) => {
+  try {
+    const batches = await usePrismaClient.getState().prisma.user.groupBy({
+      where: {
+        institution,
+        role: "student",
+      },
+
+      by: ["batch"],
+    });
+    return batches.map((batch) => batch.batch);
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getStudentUsingDeptNBatch = async (
+  dept: string,
+  batch: string
+) => {
+  try {
+    return await usePrismaClient.getState().prisma.user.findMany({
+      where: {
+        dept,
+        batch,
+        role: "student",
+      },
+      include: {
+        solved: {
+          include: {
+            question: true,
+          },
+        },
+      },
+    });
   } catch (err) {
     throw err;
   }

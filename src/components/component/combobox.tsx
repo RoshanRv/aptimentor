@@ -23,9 +23,16 @@ interface Props {
   value: string;
   setValue: (val: string) => void;
   label: string;
+  search?: boolean;
 }
 
-export function Combobox({ list, setValue, value, label }: Props) {
+export function Combobox({
+  list,
+  setValue,
+  value,
+  label,
+  search = true,
+}: Props) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -45,8 +52,12 @@ export function Combobox({ list, setValue, value, label }: Props) {
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
         <Command>
-          <CommandInput placeholder={`Search ${label}`} />
-          <CommandEmpty>No instituiton found.</CommandEmpty>
+          {search && (
+            <>
+              <CommandInput placeholder={`Search ${label}`} />
+              <CommandEmpty>No instituiton found.</CommandEmpty>
+            </>
+          )}
           <CommandGroup>
             {list.map((li) => (
               <CommandItem

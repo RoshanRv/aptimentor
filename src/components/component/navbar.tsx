@@ -40,6 +40,7 @@ const Navbar = ({ children: NavTabs }: Props) => {
             </div>
             <div className="scale-0 absolute  group-hover:scale-100 border-2 left-full w-40 translate-y-2 -translate-x-full whitespace-nowrap top-full origin-top-right transition-all bg-white p-3 rounded-md flex flex-col gap-2">
               <p className="w-full">{session.user.name}</p>
+              <Link href={"/dashboard"}>Dashboard</Link>
               <Button onClick={() => signOut()}>Logout</Button>
             </div>
           </div>

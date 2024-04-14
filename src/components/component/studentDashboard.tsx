@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Questions, Solved, User } from "@prisma/client";
 import Image from "next/image";
 import React from "react";
 import UserReport from "./userReport";
@@ -9,7 +9,7 @@ import Plan from "./plan";
 import Leaderboard from "./leaderboard";
 
 type Props = {
-  user: User;
+  user: User & { solved: (Solved & { question: Questions })[] };
 };
 
 const StudentDashboard = ({ user }: Props) => {
@@ -41,7 +41,7 @@ const StudentDashboard = ({ user }: Props) => {
                 {`${user.institution} | ${user.role}`}
               </h1>
             </div>
-            <UserReport />
+            <UserReport solved={user.solved} />
           </div>
           {/* Growth */}
           <Image

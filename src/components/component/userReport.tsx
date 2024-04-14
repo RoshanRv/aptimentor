@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+import { Questions, Solved } from "@prisma/client";
+import React, { useEffect, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -9,27 +10,71 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { isThisWeek } from "date-fns";
 
-type Props = {};
+type Props = {
+  solved: (Solved & { question: Questions })[];
+};
 
-const UserReport = (props: Props) => {
+const DAYS = {
+  0: "Sun",
+  1: "Mon",
+  2: "Tue",
+  3: "Wed",
+  4: "Thur",
+  5: "Fri",
+  6: "Sat",
+} as const;
+
+type DAYSKEY = keyof typeof DAYS;
+
+const QUESTYPE = {
+  aptitude: "Aptitude",
+  logical_reason: "Logical",
+  verbal_ability: "Verbal",
+} as const;
+
+type QUESTYPEKEY = keyof typeof QUESTYPE;
+
+const UserReport = ({ solved }: Props) => {
+  const [data, setData] = useState<
+    { name: string; Aptitude: number; Logical: number; Verbal: number }[]
+  >([]);
+
+  useEffect(() => {
+    if (solved.length > 0) {
+      const defaultSolved = [
+        { name: "Sun", Aptitude: 0, Logical: 0, Verbal: 0 },
+        { name: "Mon", Aptitude: 0, Logical: 0, Verbal: 0 },
+        { name: "Tue", Aptitude: 0, Logical: 0, Verbal: 0 },
+        { name: "Wed", Aptitude: 0, Logical: 0, Verbal: 0 },
+        { name: "Thur", Aptitude: 0, Logical: 0, Verbal: 0 },
+        { name: "Fri", Aptitude: 0, Logical: 0, Verbal: 0 },
+        { name: "Sat", Aptitude: 0, Logical: 0, Verbal: 0 },
+      ];
+
+      solved.forEach((solv) => {
+        if (isThisWeek(new Date(solv.solvedAt))) {
+          defaultSolved[new Date(solv.solvedAt).getDay() as DAYSKEY][
+            QUESTYPE[solv.question.type as QUESTYPEKEY]
+          ] =
+            defaultSolved[new Date(solv.solvedAt).getDay() as DAYSKEY][
+              QUESTYPE[solv.question.type as QUESTYPEKEY]
+            ] + 1;
+        }
+      });
+
+      setData(defaultSolved);
+    }
+  }, [solved]);
+
   return (
     <ResponsiveContainer
       width="100%"
       height={250}
       className={"mt-auto mx-auto -translate-x-5"}
     >
-      <BarChart
-        data={[
-          { name: "Sun", Aptitude: 30, Logical: 25, Verbal: 22 },
-          { name: "Mon", Aptitude: 20, Logical: 10, Verbal: 22 },
-          { name: "Tue", Aptitude: 20, Logical: 10, Verbal: 22 },
-          { name: "Wed", Aptitude: 20, Logical: 10, Verbal: 22 },
-          { name: "Thur", Aptitude: 20, Logical: 10, Verbal: 22 },
-          { name: "Fri", Aptitude: 20, Logical: 10, Verbal: 22 },
-          { name: "Sat", Aptitude: 20, Logical: 10, Verbal: 22 },
-        ]}
-      >
+      <BarChart data={data}>
         <Tooltip
           itemStyle={{
             padding: 1,

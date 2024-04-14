@@ -1,14 +1,27 @@
+import {
+  getBatchesOfInstitute,
+  getDepartmentsOfInstitute,
+} from "@/app/dashboard/actions";
 import { User } from "@prisma/client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
+import { Combobox } from "./combobox";
+import StaffStudentFilter from "./staffStudentFilter";
 
 type Props = {
   user: User;
 };
 
-const StaffDashboard = ({ user }: Props) => {
+const StaffDashboard = async ({ user }: Props) => {
+  const departments = user.institution
+    ? await getDepartmentsOfInstitute(user.institution)
+    : [];
+  const batches = user.institution
+    ? await getBatchesOfInstitute(user.institution)
+    : [];
+
   return (
-    <div>
+    <div className="min-h-[calc(100vh-5rem)]">
       <div className="flex gap-4 items-center">
         {user.image && (
           <Image
@@ -26,6 +39,8 @@ const StaffDashboard = ({ user }: Props) => {
           </h1>
         </div>
       </div>
+      {/* Search & Filter */}
+      <StaffStudentFilter departments={departments} batches={batches} />
     </div>
   );
 };
