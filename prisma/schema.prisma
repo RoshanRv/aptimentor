@@ -31,6 +31,7 @@ model User{
   batch String?
   dept String?
   role Role?
+  solved Solved[]
 }
 
 model Questions{
@@ -43,4 +44,14 @@ model Questions{
   ans String?
   topic String?
   type QuestionType
+  solved Solved[]
+}
+
+model Solved{
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  questionId String
+  question Questions @relation(fields: [questionId], references: [id])
+  solvedAt DateTime @default(now())
 }
