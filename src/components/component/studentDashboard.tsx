@@ -7,12 +7,18 @@ import DailyQuiz from "./dailyQuiz";
 import Challenge from "./challenge";
 import Plan from "./plan";
 import Leaderboard from "./leaderboard";
+import { getStudentUsingDeptNBatch } from "@/app/dashboard/actions";
 
 type Props = {
   user: User & { solved: (Solved & { question: Questions })[] };
 };
 
-const StudentDashboard = ({ user }: Props) => {
+const StudentDashboard = async ({ user }: Props) => {
+  const allStudents =
+    user.dept && user.batch
+      ? await getStudentUsingDeptNBatch(user.dept, user.batch)
+      : [];
+
   return (
     <>
       {/*  1st Row*/}
@@ -62,7 +68,7 @@ const StudentDashboard = ({ user }: Props) => {
         {/* Plan */}
         <Plan />
         {/* Leaderboard */}
-        <Leaderboard user={user} />
+        <Leaderboard user={user} allStudents={allStudents} />
       </div>
     </>
   );

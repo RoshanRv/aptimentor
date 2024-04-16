@@ -1,60 +1,81 @@
-import type { User } from "@prisma/client";
 import React, { ReactNode } from "react";
 import LEADERBOARD from "@/assets/leaderboard.webp";
 import Image from "next/image";
+import type { Questions, Solved, User } from "@prisma/client";
 
 type Props = {
   user: User;
+  allStudents: (User & { solved: (Solved & { question: Questions })[] })[];
 };
 
-const ranks = [
-  {
-    name: "XXX",
-    Aptitude: 10,
-    Logical: 15,
-    Verbal: 40,
-  },
-  {
-    name: "YYY",
-    Aptitude: 10,
-    Logical: 15,
-    Verbal: 40,
-  },
-  {
-    name: "YYY",
-    Aptitude: 10,
-    Logical: 15,
-    Verbal: 40,
-  },
-  {
-    name: "YYY",
-    Aptitude: 10,
-    Logical: 15,
-    Verbal: 40,
-  },
-  {
-    name: "YYY",
-    Aptitude: 10,
-    Logical: 15,
-    Verbal: 40,
-  },
-  {
-    name: "YYY",
-    Aptitude: 10,
-    Logical: 15,
-    Verbal: 40,
-  },
-  {
-    name: "YYY",
-    Aptitude: 10,
-    Logical: 15,
-    Verbal: 40,
-  },
-];
+// const ranks = [
+//   {
+//     name: "XXX",
+//     Aptitude: 10,
+//     Logical: 15,
+//     Verbal: 40,
+//   },
+//   {
+//     name: "YYY",
+//     Aptitude: 10,
+//     Logical: 15,
+//     Verbal: 40,
+//   },
+//   {
+//     name: "YYY",
+//     Aptitude: 10,
+//     Logical: 15,
+//     Verbal: 40,
+//   },
+//   {
+//     name: "YYY",
+//     Aptitude: 10,
+//     Logical: 15,
+//     Verbal: 40,
+//   },
+//   {
+//     name: "YYY",
+//     Aptitude: 10,
+//     Logical: 15,
+//     Verbal: 40,
+//   },
+//   {
+//     name: "YYY",
+//     Aptitude: 10,
+//     Logical: 15,
+//     Verbal: 40,
+//   },
+//   {
+//     name: "YYY",
+//     Aptitude: 10,
+//     Logical: 15,
+//     Verbal: 40,
+//   },
+// ];
 
 const headers = ["Rank", "Name", "Apt.", "Log.", "Verb."];
 
-const Leaderboard = ({ user }: Props) => {
+const Leaderboard = ({ user, allStudents }: Props) => {
+  const ranks: {
+    name: string;
+    aptitude: number;
+    logical_reason: number;
+    verbal_ability: number;
+  }[] = [];
+
+  allStudents.forEach((stud) => {
+    const studMark = {
+      name: stud.name,
+      aptitude: 0,
+      logical_reason: 0,
+      verbal_ability: 0,
+    };
+    stud.solved.forEach((solv) => {
+      studMark[solv.question.type] = studMark[solv.question.type] + 1;
+    });
+    ranks.push(studMark);
+  });
+
   return (
     <section className="bg-white py-5 rounded-lg h-full shadow-lg flex flex-col gap-2 relative w-full">
       {/* Image */}
@@ -92,10 +113,10 @@ const Leaderboard = ({ user }: Props) => {
               {i + 1}
             </Rank>
             <Rank rowIndex={i}>{rank.name}</Rank>
-            <Rank rowIndex={i}>{rank.Aptitude}</Rank>
-            <Rank rowIndex={i}>{rank.Logical}</Rank>
+            <Rank rowIndex={i}>{rank.aptitude}</Rank>
+            <Rank rowIndex={i}>{rank.logical_reason}</Rank>
             <Rank rowIndex={i} last>
-              {rank.Verbal}
+              {rank.verbal_ability}
             </Rank>
           </>
         ))}
