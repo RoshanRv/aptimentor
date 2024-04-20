@@ -94,7 +94,7 @@ const Leaderboard = ({ user, allStudents }: Props) => {
       </h1>
       <p className="whitespace-nowrap capitalize text-center text-sm">{`${user?.batch} Batch | ${user?.dept} Dept.`}</p>
       {/* table */}
-      <div className="grid w-full h-[15rem] px-5 overflow-y-auto grid-cols-[15%,40%,15%,15%,15%] gap-y-1.5">
+      <div className="grid w-full  px-5 overflow-y-auto grid-cols-[15%,40%,15%,15%,15%] gap-y-1.5">
         {/* Header */}
         <>
           {headers.map((head) => (

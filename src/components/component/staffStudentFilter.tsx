@@ -23,7 +23,6 @@ const StaffStudentFilter = ({ departments, batches }: Props) => {
   const handleGetStudents = async () => {
     try {
       const studs = await getStudentUsingDeptNBatch(department, batch);
-      console.log(studs);
 
       setStudents(studs);
     } catch (err) {
