@@ -4,6 +4,8 @@ import MCQ from "./mcq";
 import { Button } from "../ui/button";
 import CLOCK from "@/assets/clock.webp";
 import usePrismaClient from "@/store/usePrismaClient";
+import { Sparkles } from "lucide-react";
+import AskAI from "./askAI";
 
 type Props = {};
 
@@ -50,6 +52,7 @@ const DailyQuiz = async (props: Props) => {
           <Button variant={"secondary"} className="w-full  font-semibold">
             Practice
           </Button>
+          {question && <AskAI question={question} />}
         </div>
       </div>
     </div>
