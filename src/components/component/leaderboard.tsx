@@ -62,6 +62,19 @@ const Leaderboard = ({ user, allStudents }: Props) => {
     logical_reason: number;
     verbal_ability: number;
   }[] = [];
+  let myRank: {
+    rank: number;
+    name: string;
+    aptitude: number;
+    logical_reason: number;
+    verbal_ability: number;
+  } = {
+    aptitude: 0,
+    logical_reason: 0,
+    name: user.name,
+    rank: 1,
+    verbal_ability: 0,
+  };
 
   allStudents.forEach((stud) => {
     const studMark = {
@@ -73,6 +86,7 @@ const Leaderboard = ({ user, allStudents }: Props) => {
     stud.solved.forEach((solv) => {
       studMark[solv.question.type] = studMark[solv.question.type] + 1;
     });
+    if (stud.name === user.name) myRank = { ...studMark, rank: 1 };
     ranks.push(studMark);
   });
 
@@ -123,11 +137,11 @@ const Leaderboard = ({ user, allStudents }: Props) => {
       </div>
       {/* My Rank */}
       <div className="grid grid-cols-[15%,40%,15%,15%,15%] font-semibold border  border-gray-800 mx-3 p-2 rounded-md">
-        <p>?</p>
+        <p>{myRank.rank}</p>
         <p>{user.name}</p>
-        <p>{10}</p>
-        <p>{10}</p>
-        <p>{10}</p>
+        <p>{myRank.aptitude}</p>
+        <p>{myRank.logical_reason}</p>
+        <p>{myRank.verbal_ability}</p>
       </div>
     </section>
   );

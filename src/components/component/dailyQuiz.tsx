@@ -14,7 +14,7 @@ const DailyQuiz = async (props: Props) => {
     .getState()
     .prisma.questions.findUnique({
       where: {
-        id: "cltlvikya00012xdboxddteja",
+        id: "clvatwlqa0001t5wcrwe64s83",
       },
     });
 

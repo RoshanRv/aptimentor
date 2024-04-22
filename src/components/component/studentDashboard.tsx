@@ -64,7 +64,7 @@ const StudentDashboard = async ({ user }: Props) => {
       {/* 2nd Row */}
       <div className="flex gap-4 mt-4 flex-wrap lg:flex-nowrap">
         {/* Challenge */}
-        <Challenge />
+        {/* <Challenge /> */}
         {/* Plan */}
         <Plan />
         {/* Leaderboard */}

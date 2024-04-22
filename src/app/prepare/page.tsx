@@ -17,66 +17,11 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import { InputWithIcon } from "@/components/ui/input";
-
-const quantitative = [
-  "Numbers",
-  "LCM and HCF",
-  "Work and Wages",
-  "Pipes and Cisterns",
-  "Time Speed Distance",
-  "Trains, Boats, and Streams",
-  "Percentages",
-  "Ratio Proportion and Partnership",
-  "Mixtures and Alligation",
-  "Algebra",
-  "Average",
-  "Age",
-  "Profit and Loss",
-  "Simple Interest",
-  "Compound Interest",
-  "Mensuration 2D",
-  "Mensuration 3D",
-  "Trigonometry & Height and Distances",
-  "Progressions",
-  "Logarithms",
-  "Permutation and Combination",
-  "Probability",
-  "Geometry",
-  "Clocks",
-  "Calendars",
-  "Coding-Decoding",
-  "Race",
-  "Simplification and Approximation",
-];
-
-const verbal = [
-  "Passage/Sentence Rearrangement",
-  "Error Detection and Correction",
-  "Fill in the Blanks",
-  "Comprehension Passages",
-  "Cloze test",
-  "Jumbled words/Paragraphs",
-  "Antonyms and synonyms",
-  "Idioms and phrases",
-  "Vocabulary and grammar",
-  "One word Substitution",
-];
-
-const logical = [
-  "Series: Missing Numbers, Odd One Out",
-  "Data Sufficiency",
-  "Assumptions and Conclusions, Courses of Action",
-  "Puzzles",
-  "Syllogism",
-  "Cubes",
-  "Alphanumeric series",
-  "Reasoning Analogy",
-  "Blood Relations",
-  "Calendars",
-  "Clocks",
-  "Dices",
-  "Deductive Reasoning/Statement Analysis",
-];
+import {
+  logicalTopics,
+  quantitativeTopics,
+  verbalTopics,
+} from "@/lib/constants";
 
 type Props = {};
 
@@ -117,7 +62,7 @@ const PreparePage = (props: Props) => {
             <CommandList>
               <CommandEmpty>No topics found.</CommandEmpty>
               <CommandGroup heading="Quantitative Aptitude">
-                {quantitative.map((quan, i) => (
+                {quantitativeTopics.map((quan, i) => (
                   <Link
                     onClick={() => setOpen(false)}
                     href={`/prepare?topic=${quan}`}
@@ -129,7 +74,7 @@ const PreparePage = (props: Props) => {
               </CommandGroup>
               <CommandSeparator />
               <CommandGroup heading="Verbal Ability">
-                {verbal.map((verb, i) => (
+                {verbalTopics.map((verb, i) => (
                   <Link
                     onClick={() => setOpen(false)}
                     href={`/prepare?topic=${verb}`}
@@ -141,7 +86,7 @@ const PreparePage = (props: Props) => {
               </CommandGroup>
               <CommandSeparator />
               <CommandGroup heading="Logical Reasoning">
-                {logical.map((log, i) => (
+                {logicalTopics.map((log, i) => (
                   <Link
                     onClick={() => setOpen(false)}
                     href={`/prepare?topic=${log}`}
@@ -157,7 +102,7 @@ const PreparePage = (props: Props) => {
 
         <Card
           title="Quantitative Aptitude"
-          list={quantitative}
+          list={quantitativeTopics}
           img={MATHS}
           className="from-sky-200 to-sky-400"
           setShow={setShow}
@@ -165,7 +110,7 @@ const PreparePage = (props: Props) => {
         />
         <Card
           title="Verbal Ability"
-          list={verbal}
+          list={verbalTopics}
           img={ALPHABETS}
           className="from-violet-200 to-violet-400"
           setShow={setShow}
@@ -173,7 +118,7 @@ const PreparePage = (props: Props) => {
         />
         <Card
           title="Logical Reasoning"
-          list={logical}
+          list={logicalTopics}
           img={PUZZLE}
           className="from-pink-200 to-pink-400"
           setShow={setShow}

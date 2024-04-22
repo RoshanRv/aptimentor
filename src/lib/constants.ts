@@ -1,0 +1,46 @@
+export const quantitativeTopics = [
+  "Simple Interest",
+  "Profit and Loss",
+  "Numbers",
+  "LCM and HCF",
+  "Work and Wages",
+  "Time Speed Distance",
+  "Trains, Boats, and Streams",
+  "Percentages",
+  "Ratio Proportion",
+  "Mixtures and Alligation",
+  "Algebra",
+  "Age",
+  "Trigonometry & Height and Distances",
+  "Logarithms",
+  "Permutation and Combination",
+  "Probability",
+  "Clocks",
+  "Coding-Decoding",
+];
+
+export const verbalTopics = [
+  "Synonyms",
+  "Passage/Sentence Rearrangement",
+  "Error Detection and Correction",
+  "Fill in the Blanks",
+  "Comprehension Passages",
+  "Jumbled words/Paragraphs",
+  "Antonyms and synonyms",
+  "Idioms and phrases",
+  "Vocabulary and grammar",
+  "One word Substitution",
+];
+
+export const logicalTopics = [
+  "Number Series",
+  "Data Sufficiency",
+  "Assumptions and Conclusions, Courses of Action",
+  "Puzzles",
+  "Cubes",
+  "Alphanumeric series",
+  "Reasoning Analogy",
+  "Blood Relations",
+  "Calendars",
+  "Clocks",
+];
