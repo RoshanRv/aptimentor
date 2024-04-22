@@ -25,3 +25,11 @@ export const addQuestion = async (
     throw err;
   }
 };
+
+export const getAllQuestions = async () => {
+  try {
+    return await usePrismaClient.getState().prisma.questions.findMany();
+  } catch (err) {
+    throw err;
+  }
+};

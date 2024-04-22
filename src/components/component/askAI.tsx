@@ -14,9 +14,10 @@ type Props = {
     opt4: string | null;
     ans: string | null;
   };
+  title?: string;
 };
 
-const AskAI = ({ question }: Props) => {
+const AskAI = ({ question, title }: Props) => {
   const [aiResponse, setAiResponse] = useState("");
   const [loading, setLoading] = useState(false);
   const responseRef = useRef<HTMLDivElement | null>(null);
@@ -51,9 +52,12 @@ const AskAI = ({ question }: Props) => {
     <div className="relative">
       <button
         onClick={aiResponse ? () => setAiResponse("") : () => handleAsk()}
-        className="grd-bg p-2  rounded-md"
+        className="grd-bg p-2 w-full rounded-md"
       >
-        <Sparkles color="white" />
+        <div className="flex gap-4 mx-auto w-max items-center">
+          {title && <p className="font-semibold text-white">{title}</p>}
+          <Sparkles color="white" />
+        </div>
       </button>
       {/* Response */}
       {loading || aiResponse ? (

@@ -1,6 +1,6 @@
 "use client";
 import Image, { StaticImageData } from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MATHS from "@/assets/maths.webp";
 import ALPHABETS from "@/assets/alphabets.webp";
 import PUZZLE from "@/assets/puzzle.webp";
@@ -22,6 +22,10 @@ import {
   quantitativeTopics,
   verbalTopics,
 } from "@/lib/constants";
+import { getAllQuestions } from "../question/actions";
+import { Questions } from "@prisma/client";
+import MCQ from "@/components/component/mcq";
+import AskAI from "@/components/component/askAI";
 
 type Props = {};
 
@@ -29,8 +33,9 @@ const PreparePage = (props: Props) => {
   const topic = useSearchParams().get("topic");
   const [show, setShow] = useState<null | string>(null);
   const [open, setOpen] = useState(false);
+  const [questions, setQuestions] = useState<Questions[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
@@ -42,10 +47,19 @@ const PreparePage = (props: Props) => {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
+  const handleGetQuestions = async () => {
+    const res = await getAllQuestions();
+    setQuestions(res);
+  };
+
+  useEffect(() => {
+    handleGetQuestions();
+  }, []);
+
   return (
     <main className="w-full flex md:flex-row flex-col ">
       {/* Aside */}
-      <aside className="h-screen border-r-2 w-[30%] bg-white/10 backdrop-blur-sm pt-20 p-4 overflow-auto flex gap-4 flex-col ">
+      <aside className="h-screen border-r-2 w-[30%] fixed bg-white/10 backdrop-blur-sm pt-20 p-4 overflow-auto flex gap-4 flex-col ">
         <>
           <InputWithIcon
             onClick={() => setOpen(true)}
@@ -126,8 +140,33 @@ const PreparePage = (props: Props) => {
         />
       </aside>
       {/*  */}
-      <section className="w-[70%] pt-20 p-4">
-        <h1 className="text-4xl font-bold">{topic || "Preparation"}</h1>
+      <section className="w-[70%] ml-[30%] pt-20 p-4">
+        <h1 className="text-4xl font-bold mb-6">{topic || "Preparation"}</h1>
+        {/* Questions */}
+
+        {questions.length > 0 && topic && (
+          <div className="flex flex-col gap-4">
+            {questions.map((question) =>
+              question.topic && topic.includes(question.topic) ? (
+                <div className="bg-white p-3 rounded-lg shadow-lg flex flex-col gap-2">
+                  <MCQ
+                    ques={`${question?.question}`}
+                    choices={[
+                      question?.opt1,
+                      question?.opt2,
+                      question?.opt3,
+                      question?.opt4,
+                    ]}
+                    ansIndex={question?.ans ? parseInt(question?.ans) : null}
+                  />
+                  <AskAI question={question} title="Get Explanation" />
+                </div>
+              ) : (
+                <></>
+              )
+            )}
+          </div>
+        )}
       </section>
     </main>
   );
