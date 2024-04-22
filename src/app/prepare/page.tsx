@@ -148,7 +148,10 @@ const PreparePage = (props: Props) => {
           <div className="flex flex-col gap-4">
             {questions.map((question) =>
               question.topic && topic.includes(question.topic) ? (
-                <div className="bg-white p-3 rounded-lg shadow-lg flex flex-col gap-2">
+                <div
+                  key={question.id}
+                  className="bg-white p-3 rounded-lg shadow-lg flex flex-col gap-2"
+                >
                   <MCQ
                     ques={`${question?.question}`}
                     choices={[

@@ -6,10 +6,14 @@ const MCQ = ({
   choices,
   ques,
   ansIndex,
+  quiz,
+  setAns,
 }: {
   ques: string;
   choices: (string | null | undefined)[];
   ansIndex: number | null | undefined;
+  quiz?: boolean;
+  setAns?: (val: number) => void;
 }) => {
   const [selectedAns, setSelectedAns] = useState<null | number>(null);
   return (
@@ -21,8 +25,10 @@ const MCQ = ({
             ansIndex={ansIndex}
             selectedAns={selectedAns}
             setSelectedAns={setSelectedAns}
+            setAns={setAns}
             index={i}
             key={choice}
+            quiz={quiz}
           >
             {choice}
           </Opt>
@@ -40,6 +46,8 @@ interface OptTypes {
   selectedAns: number | null;
   setSelectedAns: (ans: number | null) => void;
   ansIndex: number | null | undefined;
+  quiz?: boolean;
+  setAns?: (val: number) => void;
 }
 
 export const Opt = ({
@@ -48,17 +56,21 @@ export const Opt = ({
   ansIndex,
   selectedAns,
   setSelectedAns,
+  quiz,
+  setAns,
 }: OptTypes) => {
-  const isCorrect = ansIndex === selectedAns && selectedAns === index;
+  const isCorrect = ansIndex === selectedAns && selectedAns === index && !quiz;
 
   return (
     <div
-      onClick={() => setSelectedAns(index)}
+      onClick={() => (setSelectedAns(index), setAns && setAns(index))}
       className={`rounded-sm cursor-pointer relative flex  ${
         isCorrect
           ? "bg-emerald-300"
-          : selectedAns === index
+          : selectedAns === index && !quiz
           ? "bg-red-300"
+          : selectedAns === index && quiz
+          ? "bg-gray-200"
           : "hover:bg-gray-100"
       }  overflow-hidden  transition-all`}
     >

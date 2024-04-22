@@ -33,10 +33,10 @@ const NavTabs = async (props: Props) => {
             Prepare
           </Link>
           <Link
-            href={"/test"}
+            href={"/practice"}
             className="font-semibold cursor-pointer px-4 py-2 rounded-md hover:bg-gray-100/70 backdrop-blur-lg"
           >
-            Take Test
+            Practice
           </Link>
         </>
       )}

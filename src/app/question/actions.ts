@@ -33,3 +33,16 @@ export const getAllQuestions = async () => {
     throw err;
   }
 };
+
+export const updateSolved = async (userId: string, solvedIds: string[]) => {
+  try {
+    await usePrismaClient.getState().prisma.solved.createMany({
+      data: solvedIds.map((questionId) => ({
+        userId,
+        questionId,
+      })),
+    });
+  } catch (err) {
+    throw err;
+  }
+};
